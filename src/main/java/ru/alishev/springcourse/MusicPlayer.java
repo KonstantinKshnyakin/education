@@ -2,6 +2,8 @@ package ru.alishev.springcourse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -10,10 +12,13 @@ import java.util.Map;
 import java.util.Random;
 
 @Component
+@Scope("prototype")
 public class MusicPlayer {
 
     private final HashMap<MusicGenre, Music> musicMap;
+    @Value("${musicPlayer.name}")
     private String name;
+    @Value("${musicPlayer.volume}")
     private Integer volume;
 
     @Autowired

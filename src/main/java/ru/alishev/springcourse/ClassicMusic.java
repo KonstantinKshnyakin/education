@@ -1,7 +1,10 @@
 package ru.alishev.springcourse;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,10 +26,12 @@ public class ClassicMusic implements Music {
         return new ClassicMusic();
     }
 
+    @PostConstruct
     public void doMyInit() {
         System.out.println("ClassicMusic-bean: doing my initialization");
     }
 
+    @PreDestroy
     public void doMyDestroy() {
         System.out.println("ClassicMusic-bean: doing my destroy");
     }

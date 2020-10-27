@@ -3,7 +3,6 @@ package ru.alishev.springcourse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Random;
 
 @Component
@@ -16,6 +15,10 @@ public class Computer {
     public Computer(MusicPlayer musicPlayer) {
         this.id = 1;
         this.musicPlayer = musicPlayer;
+    }
+
+    public MusicPlayer getMusicPlayer() {
+        return musicPlayer;
     }
 
     @Override
