@@ -2,8 +2,6 @@ package ru.alishev.springcourse;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Arrays;
-
 public class TestSpring {
 
     public static void main(String[] args) {
