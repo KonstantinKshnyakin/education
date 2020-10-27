@@ -15,22 +15,15 @@ import java.util.Random;
 @Scope("prototype")
 public class MusicPlayer {
 
-    private final HashMap<MusicGenre, Music> musicMap;
+    private final List<Music> musicList;
     @Value("${musicPlayer.name}")
     private String name;
     @Value("${musicPlayer.volume}")
     private Integer volume;
 
     @Autowired
-    public MusicPlayer(@Qualifier("classicMusic") Music classicMusic,
-                       @Qualifier("rockMusic") Music rockMusic,
-                       @Qualifier("rapMusic") Music rapMusic) {
-        this.musicMap = new HashMap<>(
-                Map.of(
-                        MusicGenre.CLASSIC, classicMusic,
-                        MusicGenre.ROCK, rockMusic,
-                        MusicGenre.RAP, rapMusic)
-        );
+    public MusicPlayer(List<Music> musicList) {
+        this.musicList = musicList;
     }
 
     public String getName() {
@@ -51,8 +44,10 @@ public class MusicPlayer {
 
     public String playMusic(MusicGenre musicGenre) {
         Random random = new Random();
-        List<String> songs = musicMap.get(musicGenre).getSongs();
-        int i = random.nextInt(songs.size());
-        return "Playing: " + songs.get(i);
+        int listSize = musicList.size();
+        int i1 = random.nextInt(listSize);
+        List<String> songs = musicList.get(i1).getSongs();
+        int i2 = random.nextInt(songs.size());
+        return "Playing: " + songs.get(i2);
     }
 }

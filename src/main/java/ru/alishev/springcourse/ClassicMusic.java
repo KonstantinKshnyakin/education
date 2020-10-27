@@ -17,7 +17,7 @@ public class ClassicMusic implements Music {
         songs = Arrays.asList("Hungarian Rhapsody", "The Four Seasons", "Boléro");
     }
 
-    private ClassicMusic() {
+    public ClassicMusic() {
         System.out.println("ClassicMusic initialize in constructor");
     }
 
