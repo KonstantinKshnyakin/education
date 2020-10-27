@@ -9,12 +9,11 @@ public class TestSpring {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
-        Music musicBean1 = context.getBean("rockMusic", Music.class);
-        Music musicBean2 = context.getBean("classicMusic", Music.class);
-        Music musicBean3 = context.getBean("rapMusic", Music.class);
+//        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
+//        musicPlayer.playMusic();
 
-        MusicPlayer musicPlayer = new MusicPlayer(Arrays.asList(musicBean1, musicBean2, musicBean3));
-        musicPlayer.playMusic();
+        Computer computer = context.getBean("computer", Computer.class);
+        System.out.println(computer);
 
         context.close();
     }
