@@ -12,6 +12,7 @@
     <modules>
         <module>codewars</module>
         <module>spring-app-alishev</module>
+        <module>spring-mvc-app-alishev</module>
     </modules>
 
 </project>
