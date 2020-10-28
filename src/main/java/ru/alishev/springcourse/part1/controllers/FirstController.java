@@ -1,4 +1,4 @@
-package ru.alishev.springcourse.controllers;
+package ru.alishev.springcourse.part1.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +16,12 @@ public class FirstController {
                             Model model) {
 //        System.out.println("Hello, " + name + " " + surname);
         model.addAttribute("message", "Hello, " + name + " " + surname);
-        return "first/hello";
+        return "part1/first/hello";
     }
 
     @GetMapping("/goodbye")
     public String goodByePage() {
-        return "first/goodbye";
+        return "part1/first/goodbye";
     }
 
     @GetMapping("/calculator")
@@ -38,6 +38,6 @@ public class FirstController {
             default -> 0;
         };
         model.addAttribute("result", result);
-        return "first/calculator";
+        return "part1/first/calculator";
     }
 }
