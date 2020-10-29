@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Hello</title>
@@ -12,6 +12,6 @@ or
 <a href="/exit">Exit</a>
 or
 <a href="/first/hello?name=Jon&surname=Cena">Request with parameters</a>
-<p th:text="${message}"/>
+<p th:text="${message}">message</p>
 </body>
 </html>
