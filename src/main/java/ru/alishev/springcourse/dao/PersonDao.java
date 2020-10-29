@@ -11,4 +11,8 @@ public interface PersonDao {
     List<Person> findAll();
 
     Person findById(int id);
+
+    void update(Person person);
+
+    void delete(int id);
 }

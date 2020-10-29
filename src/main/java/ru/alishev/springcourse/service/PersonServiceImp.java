@@ -1,7 +1,6 @@
 package ru.alishev.springcourse.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alishev.springcourse.dao.PersonDao;
 import ru.alishev.springcourse.models.Person;
@@ -17,7 +16,7 @@ public class PersonServiceImp implements PersonService {
         this.personDao = personDao;
     }
 
-    @Transactional(rollbackFor = {Exception.class})
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void save(Person person) {
         personDao.save(person);
@@ -33,5 +32,17 @@ public class PersonServiceImp implements PersonService {
     @Override
     public Person findById(int id) {
         return personDao.findById(id);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void update(Person person) {
+        personDao.update(person);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void delete(int id) {
+        personDao.delete(id);
     }
 }
