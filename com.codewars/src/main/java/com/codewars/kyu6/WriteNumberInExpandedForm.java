@@ -23,16 +23,12 @@ public class WriteNumberInExpandedForm {
             int i = num % 10;
             num = num / 10;
             if (i != 0) {
-                builder.insert(0, " + ");
                 builder.insert(0, i * tensMultiplier);
-            }
-            if (num == 0) {
-                int plusPosition = builder.lastIndexOf("+");
-                builder.delete(plusPosition - 1, plusPosition + 2);
+                builder.insert(0, " + ");
             }
             tensMultiplier *= 10;
         }
-        return builder.toString();
+        return builder.substring(3);
     }
 
     @Test
