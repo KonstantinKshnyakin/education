@@ -9,6 +9,10 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>codewars</module>
+    </modules>
+
     <build>
         <plugins>
             <plugin>
@@ -21,8 +25,4 @@
             </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>parsing_csv</module>
-        <module>com.codewars</module>
-    </modules>
 </project>
