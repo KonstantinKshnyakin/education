@@ -1,4 +1,4 @@
-package ru.letscode;
+package ru.letscode.sweater;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
