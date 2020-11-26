@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>spring-mvc-app1</artifactId>
-        <groupId>ru.alishev.springcourse</groupId>
+        <groupId>ru.kshnyakin.education</groupId>
+        <artifactId>education</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
