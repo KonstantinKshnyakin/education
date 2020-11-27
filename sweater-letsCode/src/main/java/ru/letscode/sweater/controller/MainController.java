@@ -1,4 +1,4 @@
-package ru.letscode.sweater;
+package ru.letscode.sweater.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,31 +10,27 @@ import ru.letscode.sweater.repository.MessageRepository;
 import java.util.Map;
 
 @Controller
-public class GreetingController {
+public class MainController {
 
-    private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
 
-    public GreetingController(MessageRepository messageRepository) {
+    public MainController(MessageRepository messageRepository) {
         this.messageRepository = messageRepository;
     }
 
-    @GetMapping("/greeting")
-    public String greeting(
-            @RequestParam(defaultValue = "World") String name,
-            Map<String, Object> model
-    ) {
-        model.put("name", name);
+    @GetMapping
+    public String greeting() {
         return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("main")
     public String main(Map<String, Object> model) {
         Iterable<Message> messages = messageRepository.findAll();
         model.put("messages", messages);
         return "main";
     }
 
-    @PostMapping
+    @PostMapping("main")
     public String add(@RequestParam String text,
                       @RequestParam String tag,
                       Map<String, Object> model) {
