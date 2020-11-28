@@ -19,12 +19,12 @@ public class RegistrationController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/registration")
+    @GetMapping("registration")
     public String registration() {
         return "registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("registration")
     public String addUser(User user, Model model) {
         User userFromDb = userRepository.findByUsername(user.getUsername());
         if (userFromDb != null) {

@@ -4,20 +4,24 @@
 <@c.page>
 <div>
     <@l.logout/>
+    <span><a href="/user">User list</a></span>
 </div>
 <div>
     <form method="post">
-        <input type="text" name="text" placeholder="Введите сообщение">
-        <input type="text" name="tag" placeholder="Тег">
+        <input type="text" name="text" placeholder="Введите сообщение"/>
+        <input type="text" name="tag" placeholder="Тег"/>
         <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-        <button type="submit">Добавить</button>
+        <button type="submit">Add</button>
     </form>
 </div>
-<form method="get">
-    <input type="text" name="filter" value="${filter}" placeholder="Фильтр">
-    <button type="submit">Найти</button>
-</form>
-<div>Список сообщений</div>
+<div>
+    <form method="get">
+        <input type="text" name="filter" value="${filter!""}" placeholder="Filter"/>
+        <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+        <button type="submit">Search</button>
+    </form>
+</div>
+<div>List messages</div>
 <#list messages as message>
     <div>
         <b>${message.id}</b>
