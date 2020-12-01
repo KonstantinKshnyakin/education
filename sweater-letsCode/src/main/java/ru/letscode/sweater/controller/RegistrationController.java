@@ -3,20 +3,18 @@ package ru.letscode.sweater.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.letscode.sweater.entyti.Role;
 import ru.letscode.sweater.entyti.User;
-import ru.letscode.sweater.repository.UserRepository;
-
-import java.util.Collections;
+import ru.letscode.sweater.services.UserService;
 
 @Controller
 public class RegistrationController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public RegistrationController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("registration")
@@ -26,16 +24,21 @@ public class RegistrationController {
 
     @PostMapping("registration")
     public String addUser(User user, Model model) {
-        User userFromDb = userRepository.findByUsername(user.getUsername());
-        if (userFromDb != null) {
+        if (!userService.addUser(user)) {
             model.addAttribute("message", "User exists!");
             return "registration";
         }
-
-        user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userRepository.save(user);
-
         return "redirect:/login";
+    }
+
+    @GetMapping("activation/{code}")
+    public String activate(@PathVariable String code, Model model) {
+        boolean isActivated = userService.activateUser(code);
+        if (isActivated) {
+            model.addAttribute("message", "User successfully activated");
+        } else {
+            model.addAttribute("message", "Activation code is not found!");
+        }
+        return "login";
     }
 }
