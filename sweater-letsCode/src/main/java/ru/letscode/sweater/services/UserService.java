@@ -1,6 +1,5 @@
 package ru.letscode.sweater.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,18 +9,18 @@ import ru.letscode.sweater.entyti.Role;
 import ru.letscode.sweater.entyti.User;
 import ru.letscode.sweater.repository.UserRepository;
 
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    @Autowired
-    private MailSender mailSender;
+    private final MailSender mailSender;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, MailSender mailSender) {
         this.userRepository = userRepository;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -40,6 +39,11 @@ public class UserService implements UserDetailsService {
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         userRepository.save(user);
+        sendMessage(user);
+        return true;
+    }
+
+    private void sendMessage(User user) {
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s \n" +
@@ -48,7 +52,6 @@ public class UserService implements UserDetailsService {
             );
             mailSender.send(user.getEmail(), "Activation code", message);
         }
-        return true;
     }
 
     public boolean activateUser(String code) {
@@ -59,5 +62,47 @@ public class UserService implements UserDetailsService {
         user.setActivationCode(null);
         userRepository.save(user);
         return true;
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public void saveUser(User user, String username, Map<String, String> from) {
+        user.setUsername(username);
+        Set<String> roles = Arrays.stream(Role.values())
+                .map(Role::name)
+                .collect(Collectors.toSet());
+        user.getRoles().clear();
+        for (String role : from.keySet()) {
+            if (roles.contains(role)) {
+                user.getRoles().add(Role.valueOf(role));
+            }
+        }
+        userRepository.save(user);
+    }
+
+    public void updateUser(User user, User updateUser) {
+        String email = user.getEmail();
+        String updateEmail = updateUser.getEmail();
+        boolean isEmailChanged = (email != null && !email.equals(updateEmail))
+        || (updateEmail != null && !updateEmail.equals(email));
+
+        if (isEmailChanged) {
+            user.setEmail(updateEmail);
+            if (!StringUtils.isEmpty(updateEmail)) {
+                user.setActivationCode(UUID.randomUUID().toString());
+            }
+        }
+
+        String updatePassword = updateUser.getPassword();
+        if (!StringUtils.isEmpty(updatePassword)) {
+            user.setPassword(updatePassword);
+        }
+
+        userRepository.save(user);
+        if (isEmailChanged) {
+            sendMessage(user);
+        }
     }
 }

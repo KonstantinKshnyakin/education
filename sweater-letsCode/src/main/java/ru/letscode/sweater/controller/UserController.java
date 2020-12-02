@@ -1,37 +1,34 @@
 package ru.letscode.sweater.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.letscode.sweater.entyti.Role;
 import ru.letscode.sweater.entyti.User;
-import ru.letscode.sweater.repository.UserRepository;
+import ru.letscode.sweater.services.UserService;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("user")
-@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
     public String getUserList(Model model) {
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
+        model.addAttribute("users", userService.findAll());
         return "users";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("{user}")
     public String userEditFrom(@PathVariable User user, Model model) {
         model.addAttribute("user", user);
@@ -39,21 +36,25 @@ public class UserController {
         return "user_edit";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping
     public String userSave(@RequestParam("id") User user,
                            @RequestParam String username,
                            @RequestParam Map<String, String> from) {
-        user.setUsername(username);
-        Set<String> roles = Arrays.stream(Role.values())
-                .map(Role::name)
-                .collect(Collectors.toSet());
-        user.getRoles().clear();
-        for (String role : from.keySet()) {
-            if (roles.contains(role)){
-                user.getRoles().add(Role.valueOf(role));
-            }
-        }
-        userRepository.save(user);
+        userService.saveUser(user, username, from);
         return "redirect:/user";
+    }
+
+    @GetMapping("profile")
+    public String getProfile(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    @PostMapping("profile")
+    public String updateProfile(@AuthenticationPrincipal User user,
+                                @ModelAttribute User updateUser) {
+        userService.updateUser(user, updateUser);
+        return "redirect:/user/profile";
     }
 }
