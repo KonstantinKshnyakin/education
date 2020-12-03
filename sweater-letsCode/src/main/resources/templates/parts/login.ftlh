@@ -15,7 +15,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Password: </label>
             <div class="col-sm-6">
-                <input type="password" name="password" placeholder="Password" value="<#if user??>${user.username}</#if>"
+                <input type="password" name="password" placeholder="Password"
                        class="form-control ${(passwordError??)?string('is-invalid', '')}"/>
                 <#if passwordError??>
                     <div class="invalid-feedback">
@@ -24,6 +24,7 @@
                 </#if>
             </div>
         </div>
+
         <#if isRegisterForm>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Password: </label>
@@ -40,7 +41,7 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Email: </label>
                 <div class="col-sm-6">
-                    <input type="email" name="email" placeholder="some@some.com"
+                    <input type="email" name="email" placeholder="some@some.com" value="<#if user??>${user.email}</#if>"
                            class="form-control ${(emailError??)?string('is-invalid', '')}"/>
                     <#if emailError??>
                         <div class="invalid-feedback">
@@ -56,6 +57,14 @@
         <#if !isRegisterForm>
             <div><a href="/registration">Add new user</a></div>
         </#if>
+        <div>
+            <#if captchaError??>
+                <div class="alert alert-danger" role="alert">
+                    ${captchaError}
+                </div>
+            </#if>
+            <div class="g-recaptcha" data-sitekey="6LfA4fcZAAAAAI4nqdWREG-rnN1hmuPlJyN4ZRxi"></div>
+        </div>
     </form>
 </#macro>
 
