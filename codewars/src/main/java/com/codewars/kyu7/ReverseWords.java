@@ -18,11 +18,8 @@ public class ReverseWords {
             return original;
         }
         return Stream.of(original.split(" "))
-                .map(
-                        s -> new StringBuilder(s).reverse().append(" ").toString()
-                )
-                .collect(Collectors.joining())
-                .substring(0, original.length());
+                .map(s -> new StringBuilder(s).reverse())
+                .collect(Collectors.joining(" "));
     }
 
     @Test
