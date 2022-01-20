@@ -1,4 +1,4 @@
-package com.codewars.kyu6;
+package com.codewars.java.kyu6;
 
 import org.junit.jupiter.api.Test;
 
