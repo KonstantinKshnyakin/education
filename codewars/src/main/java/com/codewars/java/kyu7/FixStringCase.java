@@ -2,7 +2,6 @@ package com.codewars.java.kyu7;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -2,10 +2,8 @@ package com.codewars.java.kyu5;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Write a function that takes a string of parentheses, and determines if the order of the parentheses is valid.
