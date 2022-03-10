@@ -1,0 +1,46 @@
+package com.codewars.java.kyu8;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * Consider an array/list of sheep where some sheep may be missing from their place.
+ * We need a function that counts the number of sheep present in the array (true means present).
+ *
+ * For example:
+ * [true,  true,  true,  false,
+ *   true,  true,  true,  true ,
+ *   true,  false, true,  false,
+ *   true,  false, false, true ,
+ *   true,  true,  true,  true ,
+ *   false, false, true,  true]
+ * The correct answer would be 17.
+ *
+ * Hint: Don't forget to check for bad values like null/undefined
+ */
+public class CountingSheep {
+
+    public static int countSheeps(Boolean[] arrayOfSheeps) {
+        return Arrays.stream(arrayOfSheeps)
+                .filter(Objects::nonNull)
+                .filter(b -> b)
+                .mapToInt(b -> 1)
+                .sum();
+    }
+
+    private Boolean[] array1 = {true,  true,  true,  false,
+            true,  true,  true,  true ,
+            true,  false, true,  false,
+            true,  false, false, true ,
+            true,  true,  true,  true ,
+            false, false, true,  true };
+
+    @Test
+    public void test() {
+        assertEquals(17, countSheeps(array1));
+    }
+}
