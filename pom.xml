@@ -13,7 +13,6 @@
         <module>codewars</module>
         <module>spring-app-alishev</module>
         <module>spring-mvc-app-alishev</module>
-        <module>interview-tasks</module>
         <module>sweater-letsCode</module>
     </modules>
 
