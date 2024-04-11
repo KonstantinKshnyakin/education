@@ -23,8 +23,6 @@ public class LastDigitOfLargeNumber {
     );
 
     public static int lastDigit(BigInteger n1, BigInteger n2) {
-        BigInteger bigInteger = n1.modPow(n2, BigInteger.valueOf(10));
-        System.out.println(bigInteger);
         if (BigInteger.ZERO.equals(n2)) {
             return 1;
         }
