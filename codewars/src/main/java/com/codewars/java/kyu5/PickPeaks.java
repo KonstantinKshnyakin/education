@@ -61,8 +61,8 @@ public class PickPeaks {
     }
 
     private static void add(int value, int position, Map<String, List<Integer>> result) {
-        result.get("pos").add(position);
-        result.get("peaks").add(value);
+        result.get(POS).add(position);
+        result.get(PEAKS).add(value);
     }
 
     private static String[] msg = {
