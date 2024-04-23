@@ -2,7 +2,6 @@ package com.codewars.java.kyu6;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
