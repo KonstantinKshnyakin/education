@@ -1,0 +1,1 @@
+![My Codewarrior Profile Badge](https://www.codewars.com/users/Konstantin%20Kshnyakin/badges/large)
